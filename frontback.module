@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Integrates the Frontback Web Feedback Tool into Drupal.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function frontback_menu() {
+  $items = array();
+  $items['admin/config/services/frontback'] = array(
+    'title' => 'Frontback Settings',
+    'description' => 'Frontback endpoint and repo settings',
+    'route_name' => 'frontback.settings',
+  );
+
+  return $items;
+}
+
+function frontback_page_attachments_alter(&$page) {
+
+  $settings = frontback_get_settings();
+  if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
+    if (\Drupal::currentUser()->hasPermission('access frontback')) {
+      $page['#attached']['drupalSettings'] = $settings;
+      $page['#attached']['library'][] = 'frontback/frontback';
+    }
+  }
+}
+
+/**
+ * Helper function to return frontback widget settings to the current page.
+ */
+function frontback_get_settings() {
+
+  $config = \Drupal::config('frontback.admin_settings');
+  $settings_object = array(
+    'frontback' => array(
+      'repo_id' => ($config->get('frontback_repo_id') ? $config->get('frontback_repo_id') : ''),
+      'endpoint' => ($config->get('frontback_endpoint') ? $config->get('frontback_endpoint') : ''),
+    ),
+  );
+
+  return $settings_object;
+}

@@ -1,0 +1,3 @@
+access frontback:
+  title: 'View Frontback'
+  description: 'Enduser access to Frontback widget'

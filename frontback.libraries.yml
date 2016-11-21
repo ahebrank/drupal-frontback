@@ -1,0 +1,6 @@
+frontback:
+  version: 1.x
+  js:
+    js/frontback.js: {}
+  dependencies:
+    - core/drupalSettings

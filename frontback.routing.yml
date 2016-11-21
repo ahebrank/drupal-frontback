@@ -1,0 +1,7 @@
+frontback.admin_settings:
+  path: 'admin/config/services/frontback'
+  defaults:
+    _form: '\Drupal\frontback\Form\FrontbackSettingsForm'
+    _title: 'Frontback Settings'
+  requirements:
+    _permission: 'administer site configuration'

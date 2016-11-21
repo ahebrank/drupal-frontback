@@ -1,0 +1,5 @@
+frontback.admin_settings:
+  title: Frontback
+  description: 'Administer Frontback settings.'
+  parent: system.admin_config_services
+  route_name: frontback.admin_settings
