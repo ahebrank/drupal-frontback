@@ -40,6 +40,7 @@ function frontback_get_settings() {
     'frontback' => array(
       'repo_id' => ($config->get('frontback_repo_id') ? $config->get('frontback_repo_id') : ''),
       'endpoint' => ($config->get('frontback_endpoint') ? $config->get('frontback_endpoint') : ''),
+      'version' => (time() - (time()%600)), // cache-bust every 10 min
     ),
   );
 
