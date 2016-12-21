@@ -1,7 +1,7 @@
 (function ($, Drupal, drupalSettings) {
 
-  var frontbackRepo = drupalSettings.frontback.repo_id;
-  var frontbackPostURL = drupalSettings.frontback.endpoint;
+  global.frontbackRepo = drupalSettings.frontback.repo_id;
+  global.frontbackPostURL = drupalSettings.frontback.endpoint;
   var frontbackVersion = drupalSettings.frontback.version;
 
   var s = document.createElement('script'),
