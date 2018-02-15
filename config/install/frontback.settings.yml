@@ -1,2 +1,5 @@
 frontback_repo_id: ''
 frontback_endpoint: ''
+hide_button: false
+hide_reporter_options: false
+hide_assignee_options: false

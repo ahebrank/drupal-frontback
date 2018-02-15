@@ -1,0 +1,19 @@
+frontback.admin_settings:
+  type: config_object
+  label: 'Frontback settings'
+  mapping:
+    frontback_repo_id:
+      type: text
+      label: 'Frontback repo identifier'
+    frontback_endpoint:
+      type: text
+      label: 'Frontback endpoint URL'
+    hide_button:
+      type: boolean
+      label: 'Hide Feedback button'
+    hide_reporter_options:
+      type: boolean
+      label: 'Disable reporter select box'
+    hide_assignee_options:
+      type: boolean
+      label: 'Disable and hide assignee select box'
