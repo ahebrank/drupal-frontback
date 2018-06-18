@@ -3,10 +3,10 @@ frontback.admin_settings:
   label: 'Frontback settings'
   mapping:
     frontback_repo_id:
-      type: text
+      type: string
       label: 'Frontback repo identifier'
     frontback_endpoint:
-      type: text
+      type: string
       label: 'Frontback endpoint URL'
     hide_button:
       type: boolean
