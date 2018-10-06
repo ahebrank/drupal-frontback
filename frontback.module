@@ -27,6 +27,7 @@ function frontback_page_attachments_alter(&$page) {
   $settings = frontback_get_settings();
   if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
     if (\Drupal::currentUser()->hasPermission('access frontback')) {
+      $settings['extra'] = frontback_add_extra();
       $page['#attached']['drupalSettings'] = $settings;
       $page['#attached']['library'][] = 'frontback/frontback';
     }
@@ -55,4 +56,17 @@ function frontback_get_settings() {
   ];
 
   return $settings_object;
+}
+
+/**
+ * Add extra useful metadata.
+ */
+function frontback_add_extra() {
+
+  // User info.
+  $user = Drupal::entityTypeManager()->getStorage('user')->load(\Drupal::currentUser()->id());
+
+  return [
+    'User' => $$user->getDisplayName(),
+  ];
 }

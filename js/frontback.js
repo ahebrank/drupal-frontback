@@ -2,7 +2,8 @@
   window.frontback = {
     repo: drupalSettings.frontback.repo_id,
     postUrl: drupalSettings.frontback.endpoint,
-    options: drupalSettings.frontback.options
+    options: drupalSettings.frontback.options,
+    extra: drupalSettings.frontback.extra
   };
   var s = document.createElement('script'),
       x = document.getElementsByTagName('script')[0];
