@@ -9,16 +9,19 @@
  * Implements hook_menu().
  */
 function frontback_menu() {
-  $items = array();
-  $items['admin/config/services/frontback'] = array(
+  $items = [];
+  $items['admin/config/services/frontback'] = [
     'title' => 'Frontback Settings',
     'description' => 'Frontback endpoint and repo settings',
     'route_name' => 'frontback.settings',
-  );
+  ];
 
   return $items;
 }
 
+/**
+ * Implements hook_page_attachments_alter().
+ */
 function frontback_page_attachments_alter(&$page) {
 
   $settings = frontback_get_settings();
@@ -36,9 +39,9 @@ function frontback_page_attachments_alter(&$page) {
 function frontback_get_settings() {
 
   $config = \Drupal::config('frontback.admin_settings');
-  
-  $settings_object = array(
-    'frontback' => array(
+
+  $settings_object = [
+    'frontback' => [
       'repo_id' => ($config->get('frontback_repo_id') ? $config->get('frontback_repo_id') : ''),
       'endpoint' => ($config->get('frontback_endpoint') ? $config->get('frontback_endpoint') : ''),
       'options' => [
@@ -46,9 +49,10 @@ function frontback_get_settings() {
         'hideAssigneeOptions' => $config->get('hide_assignee_options'),
         'hideReporterOptions' => $config->get('hide_reporter_options'),
       ],
-      'version' => (time() - (time()%600)), // cache-bust every 10 min
-    ),
-  );
+      // cache-bust every 10 min.
+      'version' => (time() - (time() % 600)),
+    ],
+  ];
 
   return $settings_object;
 }
