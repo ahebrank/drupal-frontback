@@ -20,14 +20,13 @@ function frontback_menu() {
 }
 
 /**
- * Implements hook_page_attachments_alter().
+ * Implements hook_page_attachments().
  */
-function frontback_page_attachments_alter(&$page) {
-
-  $settings = frontback_get_settings();
-  if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
-    if (\Drupal::currentUser()->hasPermission('access frontback')) {
-      $page['#attached']['drupalSettings'] = $settings;
+function frontback_page_attachments(array &$page) {
+  if (\Drupal::currentUser()->hasPermission('access frontback')) {
+    $settings = frontback_get_settings();
+    if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
+      $page['#attached']['drupalSettings']['frontback'] = $settings['frontback'];
       $page['#attached']['library'][] = 'frontback/frontback';
     }
   }
