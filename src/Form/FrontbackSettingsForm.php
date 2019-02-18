@@ -55,6 +55,18 @@ class FrontbackSettingsForm extends ConfigFormBase {
       '#description' => t("Hide Feedback button but run script (useful for config split / local dev situations)"),
       '#default_value' => $admin_configurations->get('hide_button'),
     ];
+    $form['show_on_nonadmin_routes'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use Feedback on non-admin routes'),
+      '#description' => t("Show on the front end"),
+      '#default_value' => $admin_configurations->get('show_on_nonadmin_routes'),
+    ];
+    $form['show_on_admin_routes'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use Feedback on admin routes'),
+      '#description' => t("Show on the back end"),
+      '#default_value' => $admin_configurations->get('show_on_admin_routes'),
+    ];
     $form['hide_assignee_options'] = [
       '#type' => 'checkbox',
       '#title' => t('Hide assignee options'),
@@ -81,6 +93,8 @@ class FrontbackSettingsForm extends ConfigFormBase {
       'hide_button',
       'hide_assignee_options',
       'hide_reporter_options',
+      'show_on_admin_routes',
+      'show_on_nonadmin_routes',
     ];
     $config = $this->config('frontback.admin_settings');
     foreach ($config_fields as $config_field) {

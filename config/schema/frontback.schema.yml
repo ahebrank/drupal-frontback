@@ -11,6 +11,12 @@ frontback.admin_settings:
     hide_button:
       type: boolean
       label: 'Hide Feedback button'
+    show_on_nonadmin_routes:
+      type: boolean
+      label: 'Use Frontback on non-admin routes'
+    show_on_admin_routes:
+      type: boolean
+      label: 'Use Frontback on admin routes'
     hide_reporter_options:
       type: boolean
       label: 'Disable reporter select box'

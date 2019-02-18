@@ -3,3 +3,5 @@ frontback_endpoint: ''
 hide_button: false
 hide_reporter_options: false
 hide_assignee_options: false
+show_on_nonadmin_routes: true
+show_on_admin_routes: true

@@ -23,11 +23,19 @@ function frontback_menu() {
  * Implements hook_page_attachments().
  */
 function frontback_page_attachments(array &$page) {
+  $page['#cache']['tags'][] = 'config:frontback.admin_settings';
+
   if (\Drupal::currentUser()->hasPermission('access frontback')) {
-    $settings = frontback_get_settings();
-    if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
-      $page['#attached']['drupalSettings']['frontback'] = $settings['frontback'];
-      $page['#attached']['library'][] = 'frontback/frontback';
+    $settings = _frontback_get_settings();
+    $is_admin_route = \Drupal::service('router.admin_context')->isAdminRoute();
+    if (
+      ($is_admin_route && $settings['show_on_admin_routes'])
+      || (!$is_admin_route && $settings['show_on_nonadmin_routes'])
+    ) {
+      if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
+        $page['#attached']['drupalSettings']['frontback'] = $settings['frontback'];
+        $page['#attached']['library'][] = 'frontback/frontback';
+      }
     }
   }
 }
@@ -35,8 +43,7 @@ function frontback_page_attachments(array &$page) {
 /**
  * Helper function to return frontback widget settings to the current page.
  */
-function frontback_get_settings() {
-
+function _frontback_get_settings() {
   $config = \Drupal::config('frontback.admin_settings');
 
   $settings_object = [
@@ -51,6 +58,8 @@ function frontback_get_settings() {
       // cache-bust every 10 min.
       'version' => (time() - (time() % 600)),
     ],
+    'show_on_admin_routes' => $config->get('show_on_admin_routes'),
+    'show_on_nonadmin_routes' => $config->get('show_on_nonadmin_routes'),
   ];
 
   return $settings_object;
