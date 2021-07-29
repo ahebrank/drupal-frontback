@@ -29,8 +29,9 @@ function frontback_page_attachments(array &$page) {
     $settings = _frontback_get_settings();
     $is_admin_route = \Drupal::service('router.admin_context')->isAdminRoute();
     if (
-      ($is_admin_route && $settings['show_on_admin_routes'])
-      || (!$is_admin_route && $settings['show_on_nonadmin_routes'])
+      (!_frontback_page_match($settings['hide_for_pages']))
+      && (($is_admin_route && $settings['show_on_admin_routes'])
+      || (!$is_admin_route && $settings['show_on_nonadmin_routes']))
     ) {
       if ($settings['frontback']['repo_id'] && $settings['frontback']['endpoint']) {
         $page['#attached']['drupalSettings']['frontback'] = $settings['frontback'];
@@ -63,4 +64,25 @@ function _frontback_get_settings() {
   ];
 
   return $settings_object;
+}
+
+/**
+ * Check if the current page is explicitly excluded.
+ */
+function _frontback_page_match($pages) {
+  // Logic from core RequestPath condition plugin.
+  $pages = mb_strtolower($pages);
+  if (!$pages) {
+    return FALSE;
+  }
+
+  $request = \Drupal::service('request_stack')->getCurrentRequest();
+  // Compare the lowercase path alias (if any) and internal path.
+  $path = \Drupal::service('path.current')->getPath($request);
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+  $path_alias = mb_strtolower(\Drupal::service('path_alias.manager')->getAliasByPath($path));
+
+  $path_matcher = \Drupal::service('path.matcher');
+  return $path_matcher->matchPath($path_alias, $pages) || (($path != $path_alias) && $path_matcher->matchPath($path, $pages));
 }

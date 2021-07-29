@@ -67,6 +67,12 @@ class FrontbackSettingsForm extends ConfigFormBase {
       '#description' => t("Show on the back end"),
       '#default_value' => $admin_configurations->get('show_on_admin_routes'),
     ];
+    $form['hide_for_pages'] = [
+      '#type' => 'textarea',
+      '#title' => t('Hide Feedback on specific pages'),
+      '#description' => t("One per line; wildcards are OK; for instance use /node/preview/* to disable for preview pages"),
+      '#default_value' => $admin_configurations->get('hide_for_pages'),
+    ];
     $form['hide_assignee_options'] = [
       '#type' => 'checkbox',
       '#title' => t('Hide assignee options'),
@@ -95,6 +101,7 @@ class FrontbackSettingsForm extends ConfigFormBase {
       'hide_reporter_options',
       'show_on_admin_routes',
       'show_on_nonadmin_routes',
+      'hide_for_pages',
     ];
     $config = $this->config('frontback.admin_settings');
     foreach ($config_fields as $config_field) {
