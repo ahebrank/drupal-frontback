@@ -61,6 +61,7 @@ function _frontback_get_settings() {
     ],
     'show_on_admin_routes' => $config->get('show_on_admin_routes'),
     'show_on_nonadmin_routes' => $config->get('show_on_nonadmin_routes'),
+    'hide_for_pages' => $config->get('hide_for_pages'),
   ];
 
   return $settings_object;
